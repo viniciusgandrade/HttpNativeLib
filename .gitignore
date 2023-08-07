@@ -1,0 +1,20 @@
+# Xcode
+.DS_Store
+xcuserdata/
+
+# Swift build artifacts
+.build/
+DerivedData/
+
+# Carthage
+/Carthage
+/Checkouts
+
+# CocoaPods
+/Pods
+/*.xcworkspace
+!*.xcworkspace
+
+# Sensitive or environment-specific files
+secrets.plist
+.env
