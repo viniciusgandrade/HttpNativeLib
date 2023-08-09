@@ -11,6 +11,9 @@
 		C305576A2A811BF90067A59E /* HttpNativeLib.h in Headers */ = {isa = PBXBuildFile; fileRef = C30557692A811BF90067A59E /* HttpNativeLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3436A9B2A832EEE00A87944 /* MyCustomError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3436A982A832EEE00A87944 /* MyCustomError.swift */; };
 		C3436A9C2A832EEE00A87944 /* HttpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3436A992A832EEE00A87944 /* HttpRequest.swift */; };
+		C3436A9E2A833DDB00A87944 /* WatchConnectivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3436A9D2A833DDB00A87944 /* WatchConnectivityManager.swift */; };
+		C3436AA02A833E7F00A87944 /* PassKitUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3436A9F2A833E7F00A87944 /* PassKitUtil.swift */; };
+		C3436AA22A833F3300A87944 /* SHA256.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3436AA12A833F3300A87944 /* SHA256.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -34,6 +37,9 @@
 		C30557692A811BF90067A59E /* HttpNativeLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HttpNativeLib.h; sourceTree = "<group>"; };
 		C3436A982A832EEE00A87944 /* MyCustomError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCustomError.swift; sourceTree = "<group>"; };
 		C3436A992A832EEE00A87944 /* HttpRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpRequest.swift; sourceTree = "<group>"; };
+		C3436A9D2A833DDB00A87944 /* WatchConnectivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnectivityManager.swift; sourceTree = "<group>"; };
+		C3436A9F2A833E7F00A87944 /* PassKitUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassKitUtil.swift; sourceTree = "<group>"; };
+		C3436AA12A833F3300A87944 /* SHA256.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SHA256.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +86,9 @@
 				C3436A992A832EEE00A87944 /* HttpRequest.swift */,
 				C3436A982A832EEE00A87944 /* MyCustomError.swift */,
 				C30557692A811BF90067A59E /* HttpNativeLib.h */,
+				C3436A9D2A833DDB00A87944 /* WatchConnectivityManager.swift */,
+				C3436A9F2A833E7F00A87944 /* PassKitUtil.swift */,
+				C3436AA12A833F3300A87944 /* SHA256.swift */,
 			);
 			path = HttpNativeLib;
 			sourceTree = "<group>";
@@ -201,7 +210,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3436A9B2A832EEE00A87944 /* MyCustomError.swift in Sources */,
+				C3436AA22A833F3300A87944 /* SHA256.swift in Sources */,
+				C3436AA02A833E7F00A87944 /* PassKitUtil.swift in Sources */,
 				C3436A9C2A832EEE00A87944 /* HttpRequest.swift in Sources */,
+				C3436A9E2A833DDB00A87944 /* WatchConnectivityManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
