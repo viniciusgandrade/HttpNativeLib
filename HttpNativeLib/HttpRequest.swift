@@ -11,10 +11,11 @@ import Alamofire
 public class HttpRequest {
     var session: Session?
     var timeoutInterval = 30
-    @objc func initialize(timeoutInterval: Int = 30) {
+    public init() {}
+    public func initialize(timeoutInterval: Int = 30) {
         self.timeoutInterval = timeoutInterval
         let host = "*.brbcard.com.br"
-        guard let certificateURL = Bundle.main.url(forResource: "brbcard_22.cer", withExtension: nil),
+        guard let certificateURL = Bundle(for: HttpRequest.self).url(forResource: "brbcard_22.cer", withExtension: nil),
               let certificateData = try? Data(contentsOf: certificateURL)
         else {
             print("Falha SSL Pinning")
@@ -41,7 +42,7 @@ public class HttpRequest {
         self.session = Session(configuration: configuration, serverTrustManager: manager)
     }
     
-    func request(url: String, method: String = "POST", _headers: [String: Any], data: inout[String:Any], completion: @escaping (Result<[String : Any], Error>) -> Void) {
+    public func request(url: String, method: String = "POST", _headers: [String: Any], data: inout[String:Any], completion: @escaping (Result<[String : Any], Error>) -> Void) {
         
         let contentType = _headers["Content-Type"] as? String ?? "application/json"
         
@@ -137,14 +138,8 @@ public class HttpRequest {
         let dv = String(bytes: Data(bytes: &sysinfo.release, count: Int(_SYS_NAMELEN)), encoding: .ascii)!.trimmingCharacters(in: .controlCharacters)
         return "Darwin/\(dv)"
     }
-    //eg. CFNetwork/808.3
-    func CFNetworkVersion() -> String {
-        let dictionary = Bundle(identifier: "com.apple.CFNetwork")?.infoDictionary!
-        let version = dictionary?["CFBundleShortVersionString"] as! String
-        return "CFNetwork/\(version)"
-    }
     
-    func getBuildVersion() -> String {
+    public func getBuildVersion() -> String {
         let mainAppBundleURL = Bundle.main.bundleURL.deletingLastPathComponent().deletingLastPathComponent()
         if let mainAppBundle = Bundle(url: mainAppBundleURL),
            let appVersion = mainAppBundle.infoDictionary?["CFBundleVersion"] as? String {
@@ -160,9 +155,6 @@ public class HttpRequest {
     }
     //eg. iPhone5,2
     func deviceName() -> String {
-        //        var sysinfo = utsname()
-        //        uname(&sysinfo)
-        //        return String(bytes: Data(bytes: &sysinfo.machine, count: Int(_SYS_NAMELEN)), encoding: .ascii)!.trimmingCharacters(in: .controlCharacters)
         return UIDevice.current.model
     }
     
@@ -170,7 +162,7 @@ public class HttpRequest {
         return String(format: "%.2f", UIScreen.main.scale)
     }
     
-    func getAppVersion() -> String {
+    public func getAppVersion() -> String {
         let mainAppBundleURL = Bundle.main.bundleURL.deletingLastPathComponent().deletingLastPathComponent()
         if let mainAppBundle = Bundle(url: mainAppBundleURL),
            let appVersion = mainAppBundle.infoDictionary?["CFBundleShortVersionString"] as? String {
@@ -179,7 +171,7 @@ public class HttpRequest {
         return ""
     }
     
-    func getBundleId() -> String {
+    public func getBundleId() -> String {
         let mainAppBundleURL = Bundle.main.bundleURL.deletingLastPathComponent().deletingLastPathComponent()
         if let mainAppBundle = Bundle(url: mainAppBundleURL) {
            return mainAppBundle.bundleIdentifier!
