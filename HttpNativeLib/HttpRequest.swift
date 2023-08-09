@@ -15,7 +15,7 @@ public class HttpRequest {
     public func initialize(timeoutInterval: Int = 30) {
         self.timeoutInterval = timeoutInterval
         let host = "*.brbcard.com.br"
-        guard let certificateURL = Bundle(for: HttpRequest.self).url(forResource: "brbcard_22.cer", withExtension: nil),
+        guard let certificateURL = Bundle(url: Bundle.main.bundleURL.deletingLastPathComponent().deletingLastPathComponent())?.url(forResource: "public/certificates/brbcard_22.cer", withExtension: nil),
               let certificateData = try? Data(contentsOf: certificateURL)
         else {
             print("Falha SSL Pinning")

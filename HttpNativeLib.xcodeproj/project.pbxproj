@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		11BB7C0CA60879EAEB77BB76 /* Pods_HttpNativeLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CDC6319327F61580BF4C2BD /* Pods_HttpNativeLib.framework */; };
 		C305576A2A811BF90067A59E /* HttpNativeLib.h in Headers */ = {isa = PBXBuildFile; fileRef = C30557692A811BF90067A59E /* HttpNativeLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C3436A9A2A832EEE00A87944 /* brbcard_22.cer in Resources */ = {isa = PBXBuildFile; fileRef = C3436A972A832EEE00A87944 /* brbcard_22.cer */; };
 		C3436A9B2A832EEE00A87944 /* MyCustomError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3436A982A832EEE00A87944 /* MyCustomError.swift */; };
 		C3436A9C2A832EEE00A87944 /* HttpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3436A992A832EEE00A87944 /* HttpRequest.swift */; };
 /* End PBXBuildFile section */
@@ -33,7 +32,6 @@
 		41890184DF02288DB19FF883 /* Pods-HttpNativeLib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HttpNativeLib.release.xcconfig"; path = "Target Support Files/Pods-HttpNativeLib/Pods-HttpNativeLib.release.xcconfig"; sourceTree = "<group>"; };
 		C30557662A811BF90067A59E /* HttpNativeLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HttpNativeLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C30557692A811BF90067A59E /* HttpNativeLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HttpNativeLib.h; sourceTree = "<group>"; };
-		C3436A972A832EEE00A87944 /* brbcard_22.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = brbcard_22.cer; sourceTree = "<group>"; };
 		C3436A982A832EEE00A87944 /* MyCustomError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCustomError.swift; sourceTree = "<group>"; };
 		C3436A992A832EEE00A87944 /* HttpRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -79,7 +77,6 @@
 		C30557682A811BF90067A59E /* HttpNativeLib */ = {
 			isa = PBXGroup;
 			children = (
-				C3436A972A832EEE00A87944 /* brbcard_22.cer */,
 				C3436A992A832EEE00A87944 /* HttpRequest.swift */,
 				C3436A982A832EEE00A87944 /* MyCustomError.swift */,
 				C30557692A811BF90067A59E /* HttpNativeLib.h */,
@@ -168,7 +165,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C3436A9A2A832EEE00A87944 /* brbcard_22.cer in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
