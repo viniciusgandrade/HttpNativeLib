@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name         = 'HttpNativeLib'
-  spec.version      = '0.0.5'
+  spec.version      = '0.0.6'
   spec.summary      = 'Library HTTP Native'
   spec.description  = 'Library HTTP Native'
   spec.homepage     = 'https://github.com/viniciusgandrade/HttpNativeLib'

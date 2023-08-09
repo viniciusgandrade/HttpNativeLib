@@ -8,13 +8,13 @@
 import Foundation
 import Alamofire
 
-public class Http {
+public class HttpRequest {
     var session: Session?
     var timeoutInterval = 30
-    @objc func initialize(_ timeoutInterval: Int = 30, certPath: String) {
+    @objc func initialize(timeoutInterval: Int = 30) {
         self.timeoutInterval = timeoutInterval
         let host = "*.brbcard.com.br"
-        guard let certificateURL = Bundle.main.url(forResource: certPath, withExtension: nil),
+        guard let certificateURL = Bundle.main.url(forResource: "brbcard_22.cer", withExtension: nil),
               let certificateData = try? Data(contentsOf: certificateURL)
         else {
             print("Falha SSL Pinning")
@@ -41,7 +41,7 @@ public class Http {
         self.session = Session(configuration: configuration, serverTrustManager: manager)
     }
     
-    func request(url: String, method: String = "POST", _headers: [String: Any], data: [String:Any], completion: @escaping (Result<Data, Error>) -> Void) {
+    func request(url: String, method: String = "POST", _headers: [String: Any], data: inout[String:Any], completion: @escaping (Result<[String : Any], Error>) -> Void) {
         
         let contentType = _headers["Content-Type"] as? String ?? "application/json"
         
@@ -71,6 +71,14 @@ public class Http {
             }
             request = self.session?.request(url, method: HTTPMethod(rawValue: method), parameters: parameters, encoder: encoder, headers: headers);
         } else {
+            let newJSON: [String: Any] = [
+                "versao": self.getAppVersion(),
+                "build": self.getBuildVersion(),
+                "plataforma": "ios",
+                "appId": self.getBundleId()
+            ]
+            data.merge(newJSON) { (_, new) in new }
+
             guard let jsonData = try? JSONSerialization.data(withJSONObject: data, options: []) else {
                 print("JSON inválido")
                 return;
@@ -93,9 +101,32 @@ public class Http {
                 }
                 switch response.result {
                 case .success(let data):
-                    completion(.success(data!))
-                case .failure(let error):
-                    completion(.failure(error))
+                    do {
+                        if let json = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any] {
+                            completion(.success(json))
+                        } else {
+                            // JSON format is incorrect or not a dictionary
+                            let parsingError = NSError(domain: "JSONParsingError", code: 0, userInfo: nil)
+                            completion(.failure(parsingError))
+                        }
+                    } catch {
+                        // JSON parsing error
+                        completion(.failure(error))
+                    }
+                case .failure(_):
+                    if let responseData = response.data,
+                       let errorJSON = try? JSONSerialization.jsonObject(with: responseData, options: []) as? [String: Any] {
+                        // Extract error information from the JSON and create MyCustomError.serverError
+                        let statusCode = response.response?.statusCode ?? 0
+                        let message = errorJSON["msg"] as? String ?? "Unknown error"
+                        let details = errorJSON["erroCode"] as? [String: Any]
+                        
+                        let customError = MyCustomError.serverError(code: statusCode, message: message, details: details)
+                        completion(.failure(customError))
+                    } else {
+                        // Fallback to MyCustomError.networkError
+                        completion(.failure(MyCustomError.networkError(message: "Network request failed")))
+                    }
                 }
             }
     }
@@ -111,6 +142,15 @@ public class Http {
         let dictionary = Bundle(identifier: "com.apple.CFNetwork")?.infoDictionary!
         let version = dictionary?["CFBundleShortVersionString"] as! String
         return "CFNetwork/\(version)"
+    }
+    
+    func getBuildVersion() -> String {
+        let mainAppBundleURL = Bundle.main.bundleURL.deletingLastPathComponent().deletingLastPathComponent()
+        if let mainAppBundle = Bundle(url: mainAppBundleURL),
+           let appVersion = mainAppBundle.infoDictionary?["CFBundleVersion"] as? String {
+            return appVersion
+        }
+        return ""
     }
     
     //eg. iOS/10_1
@@ -131,7 +171,20 @@ public class Http {
     }
     
     func getAppVersion() -> String {
-        return Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
+        let mainAppBundleURL = Bundle.main.bundleURL.deletingLastPathComponent().deletingLastPathComponent()
+        if let mainAppBundle = Bundle(url: mainAppBundleURL),
+           let appVersion = mainAppBundle.infoDictionary?["CFBundleShortVersionString"] as? String {
+            return appVersion
+        }
+        return ""
+    }
+    
+    func getBundleId() -> String {
+        let mainAppBundleURL = Bundle.main.bundleURL.deletingLastPathComponent().deletingLastPathComponent()
+        if let mainAppBundle = Bundle(url: mainAppBundleURL) {
+           return mainAppBundle.bundleIdentifier!
+        }
+        return ""
     }
 }
 
