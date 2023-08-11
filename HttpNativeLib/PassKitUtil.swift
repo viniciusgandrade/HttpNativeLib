@@ -98,14 +98,23 @@ func findPassInWallet(forSuffix suffix: String) -> [String: Any] {
 
 @available(iOSApplicationExtension 14.0, *)
 public func makeRequestToWallet(json: [String : Any]) -> PKAddPaymentPassRequest {
-    let encryptedPassDataString = json["encryptedPassData"] as! String
-    let activationDataString = json["activationData"] as! String
-    let ephemeralPublicKeyString = json["ephemeralPublicKey"] as! String
-    let wrappedKeyString = json["wrappedKey"] as! String
+    let encryptedPassDataString = json["encryptedPassData"] as? String
+    let activationDataString = json["activationData"] as? String
+    let ephemeralPublicKeyString = json["ephemeralPublicKey"] as? String
+    let wrappedKeyString = json["wrappedKey"] as? String
     let request = PKAddPaymentPassRequest()
-    request.encryptedPassData = Data(base64Encoded: encryptedPassDataString)
-    request.activationData = Data(base64Encoded: activationDataString)
-    request.ephemeralPublicKey = Data(base64Encoded: ephemeralPublicKeyString)
-    request.wrappedKey = Data(base64Encoded: wrappedKeyString)
+    if (encryptedPassDataString != nil && !encryptedPassDataString!.isEmpty) {
+        request.encryptedPassData = Data(base64Encoded: encryptedPassDataString!)
+    }
+    if (activationDataString != nil && !activationDataString!.isEmpty) {
+        request.activationData = Data(base64Encoded: activationDataString!)
+    }
+    if (ephemeralPublicKeyString != nil && !ephemeralPublicKeyString!.isEmpty) {
+        request.ephemeralPublicKey = Data(base64Encoded: ephemeralPublicKeyString!)
+    }
+    if (wrappedKeyString != nil && !wrappedKeyString!.isEmpty) {
+        request.wrappedKey = Data(base64Encoded: wrappedKeyString!)
+    }
+
     return request;
 }
