@@ -17,34 +17,34 @@ open class CommonViewController: UIViewController, UIScrollViewDelegate {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    
+
     private let spinnerView: UIView = {
         let view = UIView(frame: UIScreen.main.bounds)
         view.backgroundColor = UIColor(white: 0, alpha: 0.5)
         view.isHidden = true
-        
+
         let spinner = UIActivityIndicatorView(style: .large)
         spinner.center = view.center
         view.addSubview(spinner)
         spinner.startAnimating()
-        
+
         return view
     }()
-    
+
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
-    
-    private lazy var brbLogoView: UIImageView = {
+
+    private lazy var appLogoView: UIImageView = {
         let imageView = UIImageView()
-        let image = UIImage(named: "brb-logo", in: bundle, compatibleWith: nil)
+        let image = UIImage(named: "app-logo", in: bundle, compatibleWith: nil)
         imageView.image = image
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    
+
     private lazy var versionText: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
@@ -60,10 +60,10 @@ open class CommonViewController: UIViewController, UIScrollViewDelegate {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
+
     var enabledBackgroundColor = UIColor(red: 0.17, green: 0.4, blue: 0.74, alpha: 1)
     var disabledBackgroundColor = UIColor(red: 0.17, green: 0.4, blue: 0.74, alpha: 0.4)
-    
+
     private lazy var loginButton: UIButton = {
         let view = UIButton()
         view.backgroundColor = enabledBackgroundColor
@@ -73,19 +73,19 @@ open class CommonViewController: UIViewController, UIScrollViewDelegate {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
+
     private lazy var titleView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
         view.alignment = .leading
         view.distribution = .fillProportionally
         view.spacing = 2
-        
+
         let label1 = UILabel()
         label1.text = "Acessar"
         label1.font = UIFont.systemFont(ofSize: 12.0)
         label1.textColor = UIColor(red:33, green:33, blue:33, alpha:1.0000)
-        
+
         let label2 = UILabel()
         label2.text = "Minha conta"
         label2.font = UIFont.boldSystemFont(ofSize: 16.0)
@@ -93,11 +93,11 @@ open class CommonViewController: UIViewController, UIScrollViewDelegate {
 
         view.addArrangedSubview(label1)
         view.addArrangedSubview(label2)
-        
+
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
+
     lazy public var cpfTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "CPF"
@@ -107,21 +107,21 @@ open class CommonViewController: UIViewController, UIScrollViewDelegate {
         textField.textColor = UIColor(red: 0.13, green: 0.13, blue: 0.13, alpha: 1)
         return textField
     }()
-    
+
     private lazy var cpfView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.distribution = .fill
         stackView.spacing = 14
-        
+
         let lineView = UIImageView(image: UIImage(named: "line", in: bundle, compatibleWith: nil))
         stackView.addArrangedSubview(cpfTextField)
         stackView.addArrangedSubview(lineView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
-    
+
     lazy public var senhaTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Senha"
@@ -132,48 +132,48 @@ open class CommonViewController: UIViewController, UIScrollViewDelegate {
         textField.isSecureTextEntry = true
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.returnKeyType = .go
-        
+
         // Create a button for toggling the secure text entry
         let toggleButton = UIButton(type: .custom)
         toggleButton.setImage(UIImage(systemName: "eye.slash"), for: .normal)
         toggleButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
         toggleButton.tintColor = UIColor(red: 0.17, green: 0.4, blue: 0.74, alpha: 1)
         toggleButton.addTarget(self, action: #selector(togglePasswordVisibility), for: .touchUpInside)
-        
+
         textField.rightView = toggleButton
         textField.rightViewMode = .always
-        
+
         return textField
     }()
-    
+
     private lazy var senhaView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.distribution = .fill
         stackView.spacing = 14
-        
+
         let lineView = UIImageView(image: UIImage(named: "line", in: bundle, compatibleWith: nil))
-        
+
         stackView.addArrangedSubview(senhaTextField)
         stackView.addArrangedSubview(lineView)
-        
+
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
-    
+
     private lazy var content: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.alignment = .leading
         stackView.distribution = .fill
         stackView.spacing = 32
-        
+
         stackView.addArrangedSubview(titleView)
         stackView.addArrangedSubview(cpfView)
         stackView.addArrangedSubview(senhaView)
         stackView.addArrangedSubview(loginButton)
-        
+
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -187,20 +187,20 @@ extension CommonViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-    
+
     public func showLoading() {
         // Show the spinner view
         spinnerView.isHidden = false
     }
-    
+
     public func hideLoading() {
         // Hide the spinner view
         spinnerView.isHidden = true
     }
-    
+
     @objc func togglePasswordVisibility() {
         senhaTextField.isSecureTextEntry.toggle()
-        
+
         if let toggleButton = senhaTextField.rightView as? UIButton {
             let imageName = senhaTextField.isSecureTextEntry ? "eye.slash" : "eye"
             if let image = UIImage(systemName: imageName) {
@@ -208,7 +208,7 @@ extension CommonViewController {
             }
         }
     }
-    
+
     @objc func keyboardWillShow(_ notification: Notification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y == 0 {
@@ -216,40 +216,40 @@ extension CommonViewController {
             }
         }
     }
-    
+
     @objc func keyboardWillHide(_ notification: Notification) {
         if self.view.frame.origin.y != 0 {
             self.view.frame.origin.y = 0
         }
     }
-    
+
     @objc func formatCPF() {
         if let currentText = cpfTextField.text {
             let digitsOnly = currentText.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
             let formattedCPF = formataCPF(unformattedCPF: digitsOnly)
-            
+
             cpfTextField.text = formattedCPF
             updateLoginButtonState()
         }
     }
-    
+
     private func setupView() {
         view.backgroundColor = .white
         view.overrideUserInterfaceStyle = .light
-        
+
         loginButton.addTarget(self, action: #selector(loginRequest), for: .touchUpInside)
         cpfTextField.delegate = self
         senhaTextField.delegate = self
-        
+
         cpfTextField.addTarget(self, action: #selector(formatCPF), for: .editingChanged)
-        
+
         view.addSubview(scrollView)
-        
+
         scrollView.addSubview(backgroundView)
-        scrollView.addSubview(brbLogoView)
+        scrollView.addSubview(appLogoView)
         scrollView.addSubview(content)
         scrollView.addSubview(versionText)
-        
+
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -259,10 +259,10 @@ extension CommonViewController {
             backgroundView.heightAnchor.constraint(equalToConstant: view.bounds.height),
             backgroundView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             backgroundView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            brbLogoView.widthAnchor.constraint(equalToConstant: 124),
-            brbLogoView.heightAnchor.constraint(equalToConstant: 18),
-            brbLogoView.topAnchor.constraint(equalTo: view.topAnchor, constant: 70),
-            brbLogoView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -32),
+            appLogoView.widthAnchor.constraint(equalToConstant: 124),
+            appLogoView.heightAnchor.constraint(equalToConstant: 18),
+            appLogoView.topAnchor.constraint(equalTo: view.topAnchor, constant: 70),
+            appLogoView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -32),
             content.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32),
             content.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -32),
             content.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -274,15 +274,15 @@ extension CommonViewController {
             versionText.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -32),
         ])
         view.addSubview(spinnerView)
-        
+
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
     }
-    
+
     @objc open func loginRequest() {
         print("overrided method")
     }
-    
+
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
@@ -300,7 +300,7 @@ extension CommonViewController {
             loginButton.backgroundColor = disabledBackgroundColor
         }
     }
-    
+
     // Check if the password has more than one character
     func isValidPasswordText(_ password: String?) -> Bool {
         return (password?.count ?? 0) > 1
@@ -313,14 +313,14 @@ extension CommonViewController {
                 message: message,
                 preferredStyle: .alert
             )
-            
+
             let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertController.addAction(okAction)
-            
+
             self.present(alertController, animated: true, completion: nil)
         }
     }
-    
+
 }
 
 
@@ -328,34 +328,34 @@ extension String {
     var isCPF: Bool {
         let numbers = self.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
         guard numbers.count == 11 else { return false }
-        
+
         let set = NSCountedSet(array: Array(numbers))
         guard set.count != 1 else { return false }
-        
+
         let i1 = numbers.index(numbers.startIndex, offsetBy: 9)
         let i2 = numbers.index(numbers.startIndex, offsetBy: 10)
         let i3 = numbers.index(numbers.startIndex, offsetBy: 11)
         let d1 = Int(numbers[i1..<i2])
         let d2 = Int(numbers[i2..<i3])
-        
+
         var temp1 = 0, temp2 = 0
-        
+
         for i in 0...8 {
             let start = numbers.index(numbers.startIndex, offsetBy: i)
             let end = numbers.index(numbers.startIndex, offsetBy: i+1)
             let char = Int(numbers[start..<end])
-            
+
             temp1 += char! * (10 - i)
             temp2 += char! * (11 - i)
         }
-        
+
         temp1 %= 11
         temp1 = temp1 < 2 ? 0 : 11-temp1
-        
+
         temp2 += temp1 * 2
         temp2 %= 11
         temp2 = temp2 < 2 ? 0 : 11-temp2
-        
+
         return temp1 == d1 && temp2 == d2
     }
 }
@@ -389,15 +389,15 @@ extension CommonViewController: UITextFieldDelegate {
         }
         return true;
     }
-    
+
     func formataCPF(unformattedCPF: String) -> String {
         let mask = "###.###.###-##"
         var maskedCPF = ""
         var index = unformattedCPF.startIndex
-        
+
         for char in mask {
             if index == unformattedCPF.endIndex { break }
-            
+
             if char == "#" {
                 maskedCPF.append(unformattedCPF[index])
                 index = unformattedCPF.index(after: index)
@@ -405,13 +405,13 @@ extension CommonViewController: UITextFieldDelegate {
                 maskedCPF.append(char)
             }
         }
-        
+
         return maskedCPF
     }
-    
+
     public func removeCPFMascara(formattedCPF: String) -> String {
         return formattedCPF.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
     }
-    
-    
+
+
 }
